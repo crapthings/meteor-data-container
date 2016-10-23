@@ -30,6 +30,8 @@
       }
     }
 
+> your container component looks like
+
     <MeteorDataContainer sources={{ subscriptions, data }} component={({ posts }) => <ul>
       {posts.map(post => <li>
         {post.title}
