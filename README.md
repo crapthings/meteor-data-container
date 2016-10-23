@@ -14,7 +14,8 @@
       return Posts.find()
     })
 
-> use meteor data container to get reactive data source
+> use meteor data container to get reactive data source.
+
 > "subscriptions" is an object. each of keys in subscriptions is the subscribe name, and value should be an array that apply as publish args
 
     const subscriptions = {
