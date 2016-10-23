@@ -6,23 +6,28 @@
 
 ### how to use
 
-    Meteor.isServer && Meteor.publish('posts', function () {
+#### example1 subscribe a publication that return all posts
+
+    // publish posts on server
+    Meteor.publish('posts', function () {
       return Posts.find()
     })
 
-    <!-- "subscriptions" is an object. key of subscriptions is the subscribe name, and value should be an array that apply to publish args -->
-
+    // use meteor data container to get reactive data source
+    
+    // "subscriptions" is an object. each of keys in subscriptions is the subscribe name, and value should be an array that apply as publish args
     const subscriptions = {
-      posts: []
+      posts: [] // empty array that means no publish args
     }
 
+    // "data"
     const data = {
-      posts () {
+      posts () { // this posts is your container props
         return Posts.find().fetch()
       }
     }
 
-    <MeteorDataContainer sources={{ subscriptions, data }} options={{ cache: false }} component={({ posts }) => <ul>
+    <MeteorDataContainer sources={{ subscriptions, data }} component={({ posts }) => <ul>
       {posts.map(post => <li>
         {post.title}
       </li>)}
