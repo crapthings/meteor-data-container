@@ -6,6 +6,12 @@
 
 ### how to use
 
+    Meteor.isServer && Meteor.publish('posts', function () {
+      return Posts.find()
+    })
+
+    <!-- "subscriptions" is an object. key of subscriptions is the subscribe name, and value should be an array that apply to publish args -->
+
     const subscriptions = {
       posts: []
     }
