@@ -1,12 +1,10 @@
 ## Installation
----
 
     meteor npm i lodash react-komposer --save
 
     meteor add crapthings:meteor-data-container
 
 ## Usage
----
 
 > publish your `posts` and return your posts cursor
 
