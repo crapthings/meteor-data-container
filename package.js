@@ -1,7 +1,7 @@
 Package.describe({
   name: 'crapthings:meteor-data-container',
   summary: 'Meteor Data Container',
-  version: '0.0.1',
+  version: '0.0.2',
   git: 'https://github.com/crapthings/meteor-data-container.git',
 })
 
