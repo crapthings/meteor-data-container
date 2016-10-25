@@ -1,39 +1,42 @@
-### installation
+## Installation
+---
 
     meteor npm i lodash react-komposer --save
 
     meteor add crapthings:meteor-data-container
 
-### how to use
+## Usage
+---
 
-#### example1 subscribe a collection publication that return all posts
+> publish your `posts` and return your posts cursor
 
-> publish posts on server
+```
+Meteor.publish('posts', function (userId) {
+    const selector = userId ? { userId } : {}
+    return Posts.find(selector)
+})
+```
 
-    Meteor.publish('posts', function () {
-      return Posts.find()
-    })
+> use `MeteorDataContainer` to get your `reactive` data
 
-> use meteor data container to get reactive data source.
+```
+
+const subscriptions = {
+  posts: []
+}
+
+const data = {
+  posts () {
+    return Posts.find().fetch()
+  {
+}
+
+const PostsListComponent = () => <MeteorDataContainer sources={{ subscriptions, data }} component={({ posts }) => <div>
+  {posts.map(post) => <p key={post._id}>{post.title}</p>}
+</div>} />
+
+```
 
 > "subscriptions" is an object. each of keys in subscriptions is the subscribe name, and value should be an array that apply as publish args
 
-    const subscriptions = {
-      posts: [] // empty array that means no publish args
-    }
-
 > "data" is an object, each of keys can be use in container under props
-
-    const data = {
-      posts () { // this posts is your container props
-        return Posts.find().fetch()
-      }
-    }
-
-> your container component looks like
-
-    <MeteorDataContainer sources={{ subscriptions, data }} component={({ posts }) => <ul>
-      {posts.map(post => <li>
-        {post.title}
-      </li>)}
-    </ul>} />
