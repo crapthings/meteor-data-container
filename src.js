@@ -11,7 +11,10 @@ MeteorDataContainer = ({ sources, component, ...options }) => {
   const Subscribe = options.cache ? MeteorDataContainerCache.subscribe.bind(MeteorDataContainerCache) : Meteor.subscribe
 
   function defaultTracker(props, onData) {
-    const _loaded = _subscriptions ? map(_subscriptions, (val, key) => Subscribe(key, ...val).ready()) : [true]
+    const _loaded = _subscriptions ? map(_subscriptions, (val, key) => {
+      const _val = isFunction(val) ? val() : val
+      return Subscribe(key, ..._val).ready()
+    }) : [true]
     const data = mapValues(_data, (val) => isFunction(val) ? val() : val)
     every(_loaded) && onData(null, data)
   }
