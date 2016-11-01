@@ -1,3 +1,7 @@
+### 0.0.4
+
+> "data can be a function"
+
 ### 0.0.3_2
 
 > "subscriptions can be a function"

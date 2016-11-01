@@ -10,7 +10,7 @@ MeteorDataContainer = ({ sources, component, ...options }) => {
 
   function defaultTracker(props, onData) {
 
-    const _data = sources.data
+    const _data = sources.data && isFunction(sources.data) ? sources.data() : sources.data
     const _subscriptions = sources.subscriptions && isFunction(sources.subscriptions) ? sources.subscriptions() : sources.subscriptions
 
     const _loaded = _subscriptions ? map(_subscriptions, (val, key) => {
