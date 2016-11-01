@@ -1,3 +1,7 @@
+### 0.0.4_1
+
+> fix rerun
+
 ### 0.0.4
 
 > "data can be a function"

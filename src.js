@@ -1,4 +1,4 @@
-import { composeWithTracker as ComposeDataContainer } from 'react-komposer'
+import { composeAll, composeWithTracker as ComposeDataContainer } from 'react-komposer'
 
 import { map, mapValues, every, isFunction } from 'lodash'
 
@@ -8,7 +8,12 @@ MeteorDataContainer = ({ sources, component, ...options }) => {
 
   const Subscribe = options.cache ? MeteorDataContainerCache.subscribe.bind(MeteorDataContainerCache) : Meteor.subscribe
 
+  // const _data = sources.data && isFunction(sources.data) ? sources.data() : sources.data
+  // const _subscriptions = sources.subscriptions && isFunction(sources.subscriptions) ? sources.subscriptions() : sources.subscriptions
+
   function defaultTracker(props, onData) {
+
+    // this might cause poor performance
 
     const _data = sources.data && isFunction(sources.data) ? sources.data() : sources.data
     const _subscriptions = sources.subscriptions && isFunction(sources.subscriptions) ? sources.subscriptions() : sources.subscriptions
@@ -18,9 +23,10 @@ MeteorDataContainer = ({ sources, component, ...options }) => {
       return Subscribe(key, ..._val).ready()
     }) : [true]
 
-    const data = mapValues(_data, (val) => isFunction(val) ? val() : val)
-
-    every(_loaded) && onData(null, data)
+    if (every(_loaded)) {
+      const data = mapValues(_data, (val) => isFunction(val) ? val() : val)
+      onData(null, data)
+    }
 
   }
 
