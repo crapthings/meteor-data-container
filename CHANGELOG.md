@@ -1,3 +1,7 @@
+### 0.0.4_2
+
+> always show loading while subscriptions are not ready
+
 ### 0.0.4_1
 
 > fix rerun
